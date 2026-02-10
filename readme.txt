@@ -2,7 +2,7 @@
 Tags: elementor, acf, repeater, relationship, loop grid
 Requires at least: 5.8
 Tested up to: 6.8
-Stable tag: 1.0.1
+Stable tag: 1.1.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -65,7 +65,7 @@ Note that the preview within the template will not display the sub-field data. T
 You must have Elementor, Elementor Pro, and Advanced Custom Fields Pro installed and activated. The Repeater and Relationship fields are both ACF Pro features.
 
 **Can I get data from a repeater on a site-wide options page?**
-Currently, the plugin retrieves data from ACF fields attached to the current post or page being viewed. Support for ACF Options Pages is a potential future enhancement.
+Yes! When you select "ACF Repeater" or "ACF Relationship" as your source, a "Data Source" dropdown appears. It lists "Current Post/Page" (the default) along with any registered ACF Options Pages. Select the options page that contains your field, then choose the field name as usual.
 
 **Why isn't my ACF field showing up in the dropdown?**
 The dropdowns in the Loop Grid query settings only show fields that are available on the specific post or page you are currently editing with Elementor. Ensure that the post has a value saved for the ACF field you are trying to select.
@@ -79,6 +79,9 @@ The dropdowns in the Loop Grid query settings only show fields that are availabl
 5. For Relationships, select the ACF Relationship name to use as the data source.
 
 == Changelog ==
+
+= 1.1.0 =
+* Added ACF Options Page support. A new "Data Source" dropdown lets you pull Repeater and Relationship data from any registered options page instead of only the current post/page.
 
 = 1.0.0 =
 * Initial release.

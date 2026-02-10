@@ -7,6 +7,21 @@ if ( ! \defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Resolves the ACF post ID based on the widget's data source setting.
+ *
+ * @param \Elementor\Widget_Base $widget The widget instance.
+ *
+ * @return int|string The post ID or options page identifier.
+ */
+function resolve_acf_post_id( $widget ) {
+	$data_source = $widget->get_settings( 'post_query_acf_data_source' );
+	if ( empty( $data_source ) || 'current_post' === $data_source ) {
+		return \get_the_ID();
+	}
+	return $data_source;
+}
+
+/**
  * Handles modifying the Elementor query for an ACF Repeater source.
  *
  * @param \WP_Query $query The query object.
@@ -20,7 +35,8 @@ function handle_acf_repeater_query( $query, $widget ) {
 		return $query;
 	}
 
-	$repeater_data = \get_field( $repeater_name, \get_the_ID() );
+	$acf_post_id   = resolve_acf_post_id( $widget );
+	$repeater_data = \get_field( $repeater_name, $acf_post_id );
 	if ( ! $repeater_data || ! is_array( $repeater_data ) ) {
 		$query->posts       = [];
 		$query->post_count  = 0;
@@ -32,7 +48,7 @@ function handle_acf_repeater_query( $query, $widget ) {
 	$new_posts = [];
 	foreach ( $repeater_data as $index => $row ) {
 		$post                    = new \stdClass();
-		$post->ID                = \get_the_ID() . '-' . $index;
+		$post->ID                = ( \is_numeric( $acf_post_id ) ? $acf_post_id : 0 ) . '-' . $index;
 		$post->post_title        = isset( $row['title'] ) ? $row['title'] : 'Item ' . ( $index + 1 );
 		$post->post_content      = isset( $row['content'] ) ? $row['content'] : '';
 		$post->post_excerpt      = isset( $row['excerpt'] ) ? $row['excerpt'] : '';
@@ -65,7 +81,7 @@ function handle_acf_relation_query( $query, $widget ) {
 		return $query;
 	}
 
-	$relation_posts = \get_field( $relation_name, \get_the_ID() );
+	$relation_posts = \get_field( $relation_name, resolve_acf_post_id( $widget ) );
 
 	if ( empty( $relation_posts ) || ! is_array( $relation_posts ) ) {
 		$query->posts       = [];

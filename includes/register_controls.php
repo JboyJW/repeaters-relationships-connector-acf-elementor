@@ -34,6 +34,16 @@ if ( ! \defined( 'ABSPATH' ) ) {
                 ],
             ];
 
+            $fields['acf_data_source'] = [
+                'label'     => \esc_html__( 'Data Source', 'repeaters-relationships-connector-acf-elementor' ),
+                'type'      => \Elementor\Controls_Manager::SELECT,
+                'default'   => 'current_post',
+                'options'   => $this->get_acf_data_source_options(),
+                'condition' => [
+                    'post_type' => [ 'acf_repeater', 'acf_relation' ],
+                ],
+            ];
+
             return $fields;
         }
 
@@ -104,6 +114,22 @@ if ( ! \defined( 'ABSPATH' ) ) {
             }
 
             return $relation_fields;
+        }
+
+        private function get_acf_data_source_options() {
+            $options = [
+                'current_post' => \__( 'Current Post/Page', 'repeaters-relationships-connector-acf-elementor' ),
+            ];
+            if ( \function_exists( 'acf_get_options_pages' ) ) {
+                $options_pages = \acf_get_options_pages();
+                if ( ! empty( $options_pages ) && \is_array( $options_pages ) ) {
+                    foreach ( $options_pages as $page ) {
+                        $post_id = isset( $page['post_id'] ) ? $page['post_id'] : 'options';
+                        $options[ $post_id ] = $page['page_title'];
+                    }
+                }
+            }
+            return $options;
         }
     }
 
