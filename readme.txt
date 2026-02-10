@@ -2,7 +2,7 @@
 Tags: elementor, acf, repeater, relationship, loop grid
 Requires at least: 5.8
 Tested up to: 6.8
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -79,6 +79,9 @@ The dropdowns in the Loop Grid query settings only show fields that are availabl
 5. For Relationships, select the ACF Relationship name to use as the data source.
 
 == Changelog ==
+
+= 1.1.1 =
+* Bumping version to get it to show up in the WordPress plugin directory.
 
 = 1.1.0 =
 * Added ACF Options Page support. A new "Data Source" dropdown lets you pull Repeater and Relationship data from any registered options page instead of only the current post/page.

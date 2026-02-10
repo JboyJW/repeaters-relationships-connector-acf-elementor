@@ -2,7 +2,7 @@
 /**
  * Plugin Name:Repeaters & Relationships Connector with ACF for Elementor
  * Description: Allows Elementor Loop Grids to use ACF Repeaters and Relationships as a data source.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Solid Digital
  * Author URI: https://www.soliddigital.com
  * Text Domain: repeaters-relationships-connector-acf-elementor
