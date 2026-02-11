@@ -7,16 +7,16 @@ if ( ! \defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Resolves the ACF post ID based on the widget's data source setting.
+ * Resolves the ACF post/object ID based on the widget's data source setting.
  *
  * @param \Elementor\Widget_Base $widget The widget instance.
  *
- * @return int|string The post ID or options page identifier.
+ * @return int|string The post/object ID or options page identifier.
  */
 function resolve_acf_post_id( $widget ) {
 	$data_source = $widget->get_settings( 'post_query_acf_data_source' );
 	if ( empty( $data_source ) || 'current_post' === $data_source ) {
-		return \get_the_ID();
+		return \get_queried_object();
 	}
 	return $data_source;
 }
